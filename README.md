@@ -13,3 +13,8 @@ This project aims to develop an intelligent tool capable of analyzing, classifyi
 
 * 🔗 **Project Repository:** [PoseTrack_AI_ADN](https://github.com/Nicolas-CM/PoseTrack_AI_ADN.git)  
 * 📄 **MMFit Dataset:** [Official Site](https://mmfit.github.io) | [GitHub Repository](https://github.com/KDMStromback/mm-fit)
+
+## Autores
+- [Davide Flamini](https://github.com/davidone007)
+- [Andrés Cabezas](https://github.com/andrescabezas26)
+- [Nicolas Cuellar](https://github.com/Nicolas-CM)
