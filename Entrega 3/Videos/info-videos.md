@@ -1,0 +1,3 @@
+# Videos de Entrenamiento para Modelos de Movimiento
+
+En esta carpeta se encuentran los videos utilizados para entrenar modelos de reconocimiento y análisis de movimientos humanos. La colección incluye secuencias de acciones básicas como caminar hacia la cámara, caminar de regreso, girar, sentarse y levantarse. Estos videos proporcionan los datos necesarios para que los algoritmos de machine learning puedan aprender a identificar, clasificar y predecir diferentes tipos de movimientos corporales, creando así modelos robustos capaces de reconocer patrones de comportamiento humano en tiempo real.

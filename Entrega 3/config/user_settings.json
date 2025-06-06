@@ -1,0 +1,31 @@
+{
+    "camera": {
+        "width": 640,
+        "height": 480,
+        "fps": 30
+    },
+    "mediapipe": {
+        "model_complexity": 1,
+        "min_detection_confidence": 0.5284246575342466,
+        "min_tracking_confidence": 0.5,
+        "enable_segmentation": false,
+        "smooth_landmarks": true
+    },
+    "features": {
+        "window_size": 30,
+        "normalize": true,
+        "include_velocity": true,
+        "include_angles": true,
+        "smooth_factor": 0.3,
+        "buffer_size": 20
+    },
+    "gui": {
+        "window_title": "PoseTrack AI - Análisis de Movimiento",
+        "window_size": "1200x800",
+        "video_size": [
+            640,
+            480
+        ],
+        "update_interval": 30
+    }
+}
