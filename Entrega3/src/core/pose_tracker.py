@@ -1,5 +1,9 @@
 """
-Módulo de seguimiento de pose usando MediaPipe
+Pose tracking module using MediaPipe
+
+This module provides functionality for real-time human pose detection and tracking
+using the MediaPipe Pose solution. It includes methods for detecting landmarks,
+calculating joint angles, and visualizing the pose on video frames.
 """
 
 import cv2
@@ -12,7 +16,12 @@ from config.settings import MEDIAPIPE_CONFIG
 
 
 class PoseTracker:
-    """Clase para el seguimiento de pose en tiempo real usando MediaPipe"""
+    """Real-time pose tracking class using MediaPipe
+    
+    This class handles the detection and tracking of human body poses in video frames.
+    It uses MediaPipe's pose solution to detect 33 body landmarks and provides
+    methods to calculate relevant metrics like joint angles and body position.
+    """
     
     def __init__(self):
         self.mp_pose = mp.solutions.pose
@@ -37,16 +46,19 @@ class PoseTracker:
             'left_knee': 25, 'right_knee': 26,
             'left_ankle': 27, 'right_ankle': 28
         }
-    
     def process_frame(self, frame: np.ndarray) -> Tuple[np.ndarray, Optional[List]]:
         """
-        Procesa un frame y extrae los landmarks de pose
+        Process a video frame and extract pose landmarks
+        
+        This method detects human poses in a video frame and extracts the
+        33 body landmarks provided by MediaPipe. It also renders the pose
+        visualization on the frame if landmarks are detected.
         
         Args:
-            frame: Frame de video en formato BGR
+            frame: Video frame in BGR format
             
         Returns:
-            Tuple con frame procesado y landmarks extraídos
+            Tuple with processed frame and extracted landmarks
         """
         # Convertir BGR a RGB
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -73,17 +85,21 @@ class PoseTracker:
             landmarks = self._extract_landmarks(results.pose_landmarks, frame.shape)
         
         return annotated_frame, landmarks
-    
     def _extract_landmarks(self, pose_landmarks, frame_shape) -> List[float]:
         """
-        Extrae las coordenadas de los landmarks clave
+        Extract coordinates of key landmarks
+        
+        This method processes the MediaPipe pose landmarks and extracts
+        the normalized coordinates of key body joints that are relevant
+        for activity recognition.
         
         Args:
-            pose_landmarks: Landmarks de MediaPipe
-            frame_shape: Dimensiones del frame (height, width, channels)
+            pose_landmarks: MediaPipe pose landmarks
+            frame_shape: Frame dimensions (height, width, channels)
             
         Returns:
-            Lista de coordenadas normalizadas [x1, y1, z1, x2, y2, z2, ...]
+            List of normalized coordinates [x1, y1, z1, v1, x2, y2, z2, v2, ...]
+            where v is the visibility score
         """
         landmarks = []
         height, width = frame_shape[:2]
@@ -101,16 +117,19 @@ class PoseTracker:
             landmarks.extend([x, y, z, visibility])
         
         return landmarks
-    
     def calculate_angles(self, landmarks: List[float]) -> dict:
         """
-        Calcula ángulos importantes entre articulaciones
+        Calculate important angles between joints
+        
+        This method calculates anatomically significant angles between body joints,
+        such as elbows, knees, shoulders, and hips. These angles are critical for
+        activity recognition as they capture the relative positioning of body parts.
         
         Args:
-            landmarks: Lista de landmarks normalizados
+            landmarks: List of normalized landmarks
             
         Returns:
-            Diccionario con ángulos calculados
+            Dictionary with calculated joint angles in degrees
         """
         if not landmarks or len(landmarks) < len(self.key_landmarks) * 4:
             return {}

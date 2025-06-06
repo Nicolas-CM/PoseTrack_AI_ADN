@@ -1,6 +1,10 @@
 """
-Sistema de entrenamiento de modelos especializados para PoseTrack AI
-Entrena modelos separados para actividades básicas y ejercicios de gimnasio
+Specialized model training system for PoseTrack AI
+
+This module provides functionality to train specialized models for different
+activity categories (basic activities and gym exercises). It implements a
+hierarchical approach to activity recognition by training separate models
+for different types of activities.
 """
 
 import cv2
@@ -29,22 +33,32 @@ from src.core.feature_extractor import FeatureExtractor
 
 
 class SpecializedVideoDataProcessor:
-    """Procesa videos para extraer datos de entrenamiento para modelos especializados"""
+    """Process videos to extract training data for specialized models
+    
+    This class handles video processing and feature extraction for training
+    specialized machine learning models. It includes methods to process
+    video files, detect poses, and extract relevant features for different
+    activity categories.
+    """
     
     def __init__(self):
         self.pose_tracker = PoseTracker()
         self.feature_extractor = FeatureExtractor()
-        
     def process_video(self, video_path: str, activity_label: str) -> List[np.ndarray]:
         """
-        Procesa un video y extrae características
+        Process a video and extract features
+        
+        This method processes a video file frame by frame to detect human poses,
+        track landmarks, and extract relevant features for activity recognition.
+        It accumulates features across the video timeline to create training
+        samples.
         
         Args:
-            video_path: Ruta al video
-            activity_label: Etiqueta de la actividad
+            video_path: Path to the video file
+            activity_label: Activity label for the video
             
         Returns:
-            Lista de arrays de características
+            List of feature arrays extracted from the video
         """
         features_list = []
         

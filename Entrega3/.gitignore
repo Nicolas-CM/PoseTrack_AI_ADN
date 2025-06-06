@@ -20,7 +20,7 @@ Thumbs.db
 
 # Cache de Python
 __pycache__/
-*.pyc
+*.pyc|
 *.pyo
 *.pyd
 .Python

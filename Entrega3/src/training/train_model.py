@@ -81,16 +81,15 @@ class VideoDataProcessor:
         print(f"Extraídas {len(features_list)} secuencias de características")
         
         return features_list
-    
     def extract_activity_from_filename(self, filename: str) -> Optional[str]:
         """
-        Extrae la etiqueta de actividad del nombre del archivo
+        Extract activity label from the video filename
         
         Args:
-            filename: Nombre del archivo de video
+            filename: Name of the video file
             
         Returns:
-            Etiqueta de actividad o None si no se puede determinar
+            Activity label or None if it cannot be determined
         """
         filename = filename.lower()          # Patrones para diferentes actividades
         patterns = {
@@ -114,7 +113,11 @@ class VideoDataProcessor:
 
 
 class ModelTrainer:
-    """Entrenador de modelos de clasificación de actividades"""
+    """Activity classification model trainer
+    
+    This class provides functionality to train, evaluate, and save machine learning
+    models for human activity recognition based on pose data features.
+    """
     
     def __init__(self):
         self.data_processor = VideoDataProcessor()
@@ -123,16 +126,18 @@ class ModelTrainer:
             'rf': RandomForestClassifier(**MODEL_CONFIG['models']['rf']),
             'xgb': xgb.XGBClassifier(**MODEL_CONFIG['models']['xgb'])
         }
-        
     def prepare_training_data(self, videos_dir: str = None) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Prepara datos de entrenamiento desde videos
+        Prepare training data from videos
+        
+        This method processes video files to extract pose-based features and activity
+        labels for training machine learning models.
         
         Args:
-            videos_dir: Directorio con videos de entrenamiento
+            videos_dir: Directory containing training videos
             
         Returns:
-            Tupla con (características, etiquetas)
+            Tuple with (features, labels)
         """
         if videos_dir is None:
             videos_dir = VIDEOS_PATH
@@ -199,20 +204,23 @@ class ModelTrainer:
             print(f"  {activity}: {count} muestras")
         
         return np.array(all_features), np.array(all_labels)
-    
     def train_model(self, model_type: str, X: np.ndarray, y: np.ndarray,
                    save_path: Optional[str] = None) -> Dict:
         """
-        Entrena un modelo específico
+        Train a specific model type
+        
+        This method trains a machine learning model of the specified type using
+        provided feature data and labels. It handles data splitting, scaling,
+        training, evaluation, and model saving.
         
         Args:
-            model_type: Tipo de modelo ('svm', 'rf', 'xgb')
-            X: Características de entrenamiento
-            y: Etiquetas de entrenamiento
-            save_path: Ruta para guardar el modelo
+            model_type: Model type ('svm', 'rf', 'xgb')
+            X: Training features
+            y: Training labels
+            save_path: Path to save the model
             
         Returns:
-            Diccionario con métricas del modelo
+            Dictionary with model metrics
         """
         if model_type not in self.models:
             raise ValueError(f"Modelo {model_type} no disponible. Opciones: {list(self.models.keys())}")
@@ -305,17 +313,19 @@ class ModelTrainer:
                 json.dump(metrics_json, f, indent=2)
         
         return metrics
-    
     def train_all_models(self, X: np.ndarray, y: np.ndarray) -> Dict[str, Dict]:
         """
-        Entrena todos los modelos disponibles
+        Train all available models
+        
+        This method trains all available model types and compares their performance.
+        Results are saved with timestamps for tracking experiments.
         
         Args:
-            X: Características de entrenamiento
-            y: Etiquetas de entrenamiento
+            X: Training features
+            y: Training labels
             
         Returns:
-            Diccionario con métricas de todos los modelos
+            Dictionary with metrics for all models
         """
         all_metrics = {}
         
@@ -346,19 +356,21 @@ class ModelTrainer:
                 print(f"{model_type.upper()}\t\tERROR: {metrics['error']}")
         
         return all_metrics
-    
     def save_training_data(self, X: np.ndarray, y: np.ndarray, 
                           filename: str = None) -> str:
         """
-        Guarda datos de entrenamiento procesados
+        Save processed training data
+        
+        This method serializes extracted features and labels to disk for later use,
+        including metadata about the feature extraction process.
         
         Args:
-            X: Características
-            y: Etiquetas
-            filename: Nombre del archivo (opcional)
+            X: Features
+            y: Labels
+            filename: Filename (optional)
             
         Returns:
-            Ruta del archivo guardado
+            Path to saved file
         """
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -381,16 +393,18 @@ class ModelTrainer:
         print(f"Datos de entrenamiento guardados en: {save_path}")
         
         return str(save_path)
-    
     def load_training_data(self, filename: str) -> Tuple[np.ndarray, np.ndarray]:
         """
-        Carga datos de entrenamiento previamente guardados
+        Load previously saved training data
+        
+        This method loads serialized feature data and labels from disk for model training
+        without needing to reprocess videos.
         
         Args:
-            filename: Nombre del archivo de datos
+            filename: Data filename
             
         Returns:
-            Tupla con (características, etiquetas)
+            Tuple with (features, labels)
         """
         data_path = DATA_PATH / filename
         
@@ -406,7 +420,14 @@ class ModelTrainer:
 
 
 def main():
-    """Función principal para entrenar modelos"""
+    """Main function for model training
+    
+    This function orchestrates the complete training process:
+    1. Extract features from training videos
+    2. Save processed data
+    3. Train and compare multiple model types
+    4. Report results and identify best model
+    """
     trainer = ModelTrainer()
     
     print("=== SISTEMA DE ENTRENAMIENTO POSETRACK AI ===\n")

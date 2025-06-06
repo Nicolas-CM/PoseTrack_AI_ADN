@@ -17,7 +17,7 @@
         "include_velocity": true,
         "include_angles": true,
         "smooth_factor": 0.3,
-        "buffer_size": 20
+        "buffer_size": 10
     },
     "gui": {
         "window_title": "PoseTrack AI - Análisis de Movimiento",

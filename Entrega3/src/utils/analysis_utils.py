@@ -1,5 +1,9 @@
 """
-Utilidades para análisis y visualización de datos
+Data analysis and visualization utilities
+
+This module provides functions for analyzing model performance, visualizing results,
+and interpreting machine learning models for activity recognition. It includes
+tools for plotting confusion matrices, feature importance, and dimensionality reduction.
 """
 
 import numpy as np
@@ -16,14 +20,18 @@ def plot_confusion_matrix(y_true: np.ndarray, y_pred: np.ndarray,
                          class_names: List[str], title: str = "Matriz de Confusión",
                          save_path: Optional[str] = None):
     """
-    Visualiza una matriz de confusión
+    Visualize a confusion matrix
+    
+    This function creates a heatmap visualization of the confusion matrix to 
+    evaluate model performance. It shows how well the model classifies each activity
+    and where misclassifications occur.
     
     Args:
-        y_true: Etiquetas verdaderas
-        y_pred: Etiquetas predichas
-        class_names: Nombres de las clases
-        title: Título del gráfico
-        save_path: Ruta para guardar el gráfico (opcional)
+        y_true: True labels
+        y_pred: Predicted labels
+        class_names: Class names for axis labels
+        title: Plot title
+        save_path: Path to save the plot (optional)
     """
     plt.figure(figsize=(10, 8))
     

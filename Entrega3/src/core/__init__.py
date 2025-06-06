@@ -1,1 +1,1 @@
-# Módulos principales del sistema
+# Main modules for PoseTrack AI

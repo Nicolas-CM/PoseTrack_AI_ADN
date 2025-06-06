@@ -1,5 +1,9 @@
 """
-Módulo de extracción y normalización de características
+Feature extraction and normalization module
+
+This module provides functionality for extracting temporal features from pose data.
+It processes raw landmarks and joint angles over time to derive motion-based
+features suitable for activity recognition.
 """
 
 import numpy as np
@@ -12,7 +16,13 @@ from config.settings import FEATURE_CONFIG
 
 
 class FeatureExtractor:
-    """Extrae características temporales de secuencias de landmarks"""
+    """Extract temporal features from landmark sequences
+    
+    This class processes sequences of pose landmarks over time to extract
+    motion-based features that capture patterns of movement. It maintains
+    a sliding window of recent frames and computes statistical and temporal
+    features from this window for activity recognition.
+    """
     
     def __init__(self, window_size: int = None):
         self.window_size = window_size or FEATURE_CONFIG['window_size']
@@ -22,28 +32,34 @@ class FeatureExtractor:
         
         # Estadísticas para normalización
         self.stats = None
-        
     def add_frame_data(self, landmarks: List[float], angles: Dict[str, float], 
                       timestamp: float = None):
         """
-        Añade datos de un frame al buffer
+        Add frame data to the buffer
+        
+        This method adds pose data from a new frame to the sliding window buffer.
+        It stores landmarks, calculated joint angles, and timestamps for later
+        feature extraction.
         
         Args:
-            landmarks: Lista de landmarks normalizados
-            angles: Diccionario de ángulos calculados
-            timestamp: Timestamp del frame (opcional)
+            landmarks: List of normalized landmarks
+            angles: Dictionary of calculated joint angles
+            timestamp: Frame timestamp (optional)
         """
         if landmarks:
             self.landmarks_buffer.append(landmarks)
             self.angles_buffer.append(angles)
             self.timestamps_buffer.append(timestamp or len(self.landmarks_buffer))
-    
     def extract_features(self) -> Optional[np.ndarray]:
         """
-        Extrae características de la ventana actual
+        Extract features from the current window
+        
+        This method processes the accumulated pose data in the buffer to extract
+        a comprehensive set of features for activity recognition, including
+        statistical features, velocity metrics, and angular information.
         
         Returns:
-            Array de características o None si no hay suficientes datos
+            Feature array or None if insufficient data
         """
         if len(self.landmarks_buffer) < self.window_size:
             return None

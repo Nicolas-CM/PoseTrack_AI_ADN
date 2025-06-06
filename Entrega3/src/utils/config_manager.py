@@ -1,5 +1,9 @@
 """
-Gestión de configuraciones persistentes para PoseTrack AI
+Persistent configuration management for PoseTrack AI
+
+This module handles saving and loading user configurations to provide
+persistent settings across application sessions. It manages camera settings, 
+MediaPipe parameters, feature extraction options, and UI preferences.
 """
 
 import json
@@ -17,19 +21,27 @@ from config.settings import (
 
 
 class ConfigManager:
-    """Gestor de configuraciones persistentes"""
+    """Persistent configuration manager
+    
+    This class provides methods to save and load application settings to/from
+    disk. It handles default configurations, user customizations, and updates
+    to individual configuration sections.
+    """
     
     def __init__(self):
         self.config_file = CONFIG_PATH / "user_settings.json"
         self._ensure_config_file()
-    
     def _ensure_config_file(self):
-        """Asegura que el archivo de configuración existe"""
+        """Ensure the configuration file exists
+        
+        Creates the default configuration file if it doesn't exist yet."""
         if not self.config_file.exists():
             self.save_default_config()
-    
     def save_default_config(self):
-        """Guarda la configuración por defecto"""
+        """Save default configuration
+        
+        Creates and saves the default application configuration using
+        the preset values from the settings module."""
         default_config = {
             "camera": CAMERA_CONFIG.copy(),
             "mediapipe": MEDIAPIPE_CONFIG.copy(),
@@ -38,9 +50,11 @@ class ConfigManager:
         }
         
         self._save_config(default_config)
-    
     def _save_config(self, config: Dict[str, Any]):
-        """Guarda la configuración en archivo JSON"""
+        """Save configuration to JSON file
+        
+        Writes the configuration dictionary to disk in JSON format
+        with proper formatting and UTF-8 encoding."""
         try:
             with open(self.config_file, 'w', encoding='utf-8') as f:
                 json.dump(config, f, indent=4, ensure_ascii=False)

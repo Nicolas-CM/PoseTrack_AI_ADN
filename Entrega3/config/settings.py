@@ -1,23 +1,23 @@
 """
-Configuración global del sistema PoseTrack AI
+Global configuration for the PoseTrack AI system
 """
 
 import os
 from pathlib import Path
 
-# Rutas del proyecto
+# Project paths
 PROJECT_ROOT = Path(__file__).parent.parent
 VIDEOS_PATH = PROJECT_ROOT / "Videos"
 MODELS_PATH = PROJECT_ROOT / "models"
 DATA_PATH = PROJECT_ROOT / "data"
 CONFIG_PATH = PROJECT_ROOT / "config"
 
-# Crear directorios si no existen
+# Create directories if they don't exist
 MODELS_PATH.mkdir(exist_ok=True)
 DATA_PATH.mkdir(exist_ok=True)
 CONFIG_PATH.mkdir(exist_ok=True)
 
-# Configuración de MediaPipe
+# MediaPipe configuration
 MEDIAPIPE_CONFIG = {
     "model_complexity": 1,
     "min_detection_confidence": 0.5,
@@ -26,40 +26,40 @@ MEDIAPIPE_CONFIG = {
     "smooth_landmarks": True,
 }
 
-# Configuración de cámara
+# Camera configuration
 CAMERA_CONFIG = {"width": 640, "height": 480, "fps": 30}
 
-# Actividades básicas de movimiento
+# Basic movement activities
 BASIC_ACTIVITIES = {
-    "acercarse": "Acercándose a la cámara",
-    "alejarse": "Alejándose de la cámara",
-    "girarD": "Girando a la derecha",
-    "girarI": "Girando a la izquierda",
-    "sentarse": "Sentándose",
-    "levantarse": "Levantándose",
-    "parado": "Estar de pie",
+    "acercarse": "Approaching the camera",
+    "alejarse": "Moving away from the camera",
+    "girarD": "Turning right",
+    "girarI": "Turning left",
+    "sentarse": "Sitting down",
+    "levantarse": "Standing up",
+    "parado": "Standing still",
 }
 
-# Actividades de gimnasio/ejercicio
+# Gym/exercise activities
 GYM_ACTIVITIES = {
-    "squat": "Sentadillas",
-    "russian_twist": "Giros rusos",
-    "push_up": "Flexiones",
+    "squat": "Squats",
+    "russian_twist": "Russian twists",
+    "push_up": "Push-ups",
 }
 
-# Todas las actividades (para compatibilidad)
+# All activities (for compatibility)
 ACTIVITIES = {**BASIC_ACTIVITIES, **GYM_ACTIVITIES}
 
-# Configuración de características
+# Feature configuration
 FEATURE_CONFIG = {
-    "window_size": 30,  # Ventana deslizante de frames
+    "window_size": 30,  # Sliding window of frames
     "normalize": True,
     "include_velocity": True,
     "include_angles": True,
     "smooth_factor": 0.3,
 }
 
-# Configuración de modelos
+# Model configuration
 MODEL_CONFIG = {
     "test_size": 0.2,
     "random_state": 42,
@@ -71,9 +71,9 @@ MODEL_CONFIG = {
     },
 }
 
-# Configuración de GUI
+# GUI configuration
 GUI_CONFIG = {
-    "window_title": "PoseTrack AI - Análisis de Movimiento",
+    "window_title": "PoseTrack AI - Movement Analysis",
     "window_size": "1200x800",
     "video_size": (640, 480),
     "update_interval": 30,  # ms

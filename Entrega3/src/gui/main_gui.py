@@ -1,5 +1,9 @@
 """
-Interfaz gráfica principal para PoseTrack AI
+Main graphical interface for PoseTrack AI
+
+This module implements the complete graphical user interface for the PoseTrack AI
+application. It provides camera control, video processing, real-time activity
+recognition visualization, and configuration options through an intuitive UI.
 """
 
 import tkinter as tk
@@ -20,7 +24,12 @@ from src.utils.config_manager import config_manager
 
 
 class PoseTrackGUI:
-    """Interfaz gráfica principal de PoseTrack AI"""
+    """Main graphical interface for PoseTrack AI
+    
+    This class implements the main application window and manages all UI components
+    and application logic. It handles video processing, pose detection, activity
+    recognition, and user interface rendering in real-time.
+    """
 
     def __init__(self):
         # Cargar configuraciones guardadas

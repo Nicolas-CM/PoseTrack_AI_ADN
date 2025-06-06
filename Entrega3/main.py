@@ -1,6 +1,9 @@
 """
-Archivo principal de PoseTrack AI
-Sistema de análisis de movimiento en tiempo real
+Main entry point for PoseTrack AI
+Real-time movement analysis system
+
+This module serves as the main entry point for the PoseTrack AI application,
+providing command-line interface options for running the GUI or training models.
 """
 
 import sys
@@ -17,7 +20,12 @@ sys.path.insert(0, str(src_path))
 sys.path.insert(0, str(config_path))
 
 def check_dependencies():
-    """Verifica que todas las dependencias estén instaladas"""
+    """
+    Verify that all required dependencies are installed.
+    
+    Returns:
+        bool: True if all dependencies are available, False otherwise
+    """
     required_packages = [
         'cv2', 'mediapipe', 'numpy', 'pandas', 'sklearn', 
         'xgboost', 'joblib', 'tkinter', 'PIL', 'scipy'
@@ -37,18 +45,21 @@ def check_dependencies():
                 __import__(package)
         except ImportError:
             missing_packages.append(package)
-    
     if missing_packages:
-        print("❌ Faltan las siguientes dependencias:")
+        print("❌ Missing the following dependencies:")
         for package in missing_packages:
             print(f"   - {package}")
-        print("\nInstálalas con: pip install -r requirements.txt")
+        print("\nInstall them with: pip install -r requirements.txt")
         return False
     
     return True
 
 def create_directories():
-    """Crea los directorios necesarios si no existen"""
+    """
+    Create necessary project directories if they don't exist.
+    
+    Creates models, data, and config directories in the project root.
+    """
     directories = [
         project_root / "models",
         project_root / "data",
@@ -59,39 +70,48 @@ def create_directories():
         directory.mkdir(exist_ok=True)
 
 def main():
-    """Función principal"""
-    print("🎯 PoseTrack AI - Sistema de Análisis de Movimiento")
+    """
+    Main function that initializes and runs the PoseTrack AI application.
+    
+    Checks dependencies, creates directories, and launches the GUI interface.
+    """
+    print("🎯 PoseTrack AI - Movement Analysis System")
     print("=" * 50)
     
-    # Verificar dependencias
-    print("Verificando dependencias...")
+    # Check dependencies
+    print("Checking dependencies...")
     if not check_dependencies():
         sys.exit(1)
     
-    print("✅ Todas las dependencias están disponibles")
+    print("✅ All dependencies are available")
     
-    # Crear directorios
+    # Create directories
     create_directories()
-    print("✅ Directorios del proyecto verificados")
+    print("✅ Project directories verified")
     
     try:
-        # Importar y ejecutar la GUI
+        # Import and run GUI
         from src.gui.main_gui import main as gui_main
         
-        print("🚀 Iniciando interfaz gráfica...")
+        print("🚀 Starting graphical interface...")
         gui_main()
         
     except KeyboardInterrupt:
-        print("\n👋 Aplicación cerrada por el usuario")
+        print("\n👋 Application closed by user")
     except Exception as e:
-        print(f"❌ Error fatal: {e}")
+        print(f"❌ Fatal error: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
 
 def train_models():
-    """Función para entrenar modelos especializados desde línea de comandos"""
-    print("🚀 PoseTrack AI - Entrenamiento de Modelos Especializados")
+    """
+    Function to train specialized models from command line.
+    
+    Initializes the specialized model trainer and trains all models
+    for different activity categories.
+    """
+    print("🚀 PoseTrack AI - Specialized Model Training")
     print("=" * 50)
     
     if not check_dependencies():
@@ -105,16 +125,16 @@ def train_models():
         trainer = SpecializedModelTrainer()
         results = trainer.train_all_specialized_models()
         
-        print("\n🎉 Entrenamiento de modelos especializados completado!")
+        print("\n🎉 Specialized model training completed!")
         
     except Exception as e:
-        print(f"❌ Error durante entrenamiento: {e}")
+        print(f"❌ Error during training: {e}")
         import traceback
         traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":
-    # Verificar argumentos de línea de comandos
+    # Check command line arguments
     if len(sys.argv) > 1:
         command = sys.argv[1].lower()
         
@@ -123,14 +143,14 @@ if __name__ == "__main__":
         elif command == "gui":
             main()
         elif command == "--help" or command == "-h":
-            print("PoseTrack AI - Uso:")
-            print("  python main.py        # Iniciar interfaz gráfica")
-            print("  python main.py gui    # Iniciar interfaz gráfica")
-            print("  python main.py train  # Entrenar modelos")
-            print("  python main.py --help # Mostrar esta ayuda")
+            print("PoseTrack AI - Usage:")
+            print("  python main.py        # Start graphical interface")
+            print("  python main.py gui    # Start graphical interface")
+            print("  python main.py train  # Train models")
+            print("  python main.py --help # Show this help")
         else:
-            print(f"Comando desconocido: {command}")
-            print("Usa 'python main.py --help' para ver opciones disponibles")
+            print(f"Unknown command: {command}")
+            print("Use 'python main.py --help' to see available options")
     else:
-        # Por defecto, iniciar GUI
+        # Default: start GUI
         main()

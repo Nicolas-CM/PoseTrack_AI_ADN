@@ -1,5 +1,5 @@
 """
-Módulo de clasificación de actividades en tiempo real
+Real-time Activity Classification Module
 """
 
 import numpy as np
@@ -12,7 +12,7 @@ from config.settings import MODEL_CONFIG, ACTIVITIES, MODELS_PATH
 
 
 class ActivityClassifier:
-    """Clasificador de actividades humanas en tiempo real"""
+    """Human activity classifier for real-time predictions"""
     
     def __init__(self, model_path: Optional[str] = None):
         self.model = None
@@ -26,22 +26,22 @@ class ActivityClassifier:
     
     def load_model(self, model_path: str) -> bool:
         """
-        Carga un modelo entrenado desde archivo
+        Load a trained model from file
         
         Args:
-            model_path: Ruta al archivo del modelo
+            model_path: Path to the model file
             
         Returns:
-            True si la carga fue exitosa, False en caso contrario
+            True if the model is loaded successfully, False otherwise
         """
         try:
             model_path = Path(model_path)
             
             if not model_path.exists():
-                print(f"Error: El archivo {model_path} no existe")
+                print(f"Error: File {model_path} does not exist")
                 return False
             
-            # Cargar modelo principal
+            # Load the model
             model_data = joblib.load(model_path)
             
             if isinstance(model_data, dict):
@@ -51,43 +51,42 @@ class ActivityClassifier:
                 self.model_info = model_data.get('info', {})
                 self.model_name = self.model_info.get('model_type', 'unknown')
             else:
-                # Retrocompatibilidad: modelo sin metadatos
+                # Backward compatibility for legacy models
                 self.model = model_data
                 self.model_name = 'legacy'
             
-            print(f"Modelo {self.model_name} cargado exitosamente")
+            print(f"Model {self.model_name} loaded successfully")
             return True
             
         except Exception as e:
-            print(f"Error cargando modelo: {e}")
+            print(f"Error loading model: {e}")
             return False
     
     def predict(self, features: np.ndarray) -> Tuple[str, float, Dict[str, float]]:
         """
-        Predice la actividad para un conjunto de características
+        Predict activity from a feature vector
         
         Args:
-            features: Array de características extraídas
+            features: Feature array
             
         Returns:
-            Tupla con (actividad_predicha, confianza, probabilidades_por_clase)
+            Tuple with (predicted_activity, confidence, class_probabilities)
         """
         if self.model is None:
-            return "sin_modelo", 0.0, {}
+            return "no_model", 0.0, {}
         
         try:
-            # Asegurar que features sea 2D
+            # Ensure features are 2D
             if features.ndim == 1:
                 features = features.reshape(1, -1)
             
-            # Normalizar características si hay scaler
+            # Apply normalization if available
             if self.feature_scaler is not None:
                 features = self.feature_scaler.transform(features)
             
-            # Realizar predicción
+            # Make prediction
             prediction = self.model.predict(features)[0]
             
-            # Obtener probabilidades si es posible
             probabilities = {}
             confidence = 0.0
             
@@ -95,7 +94,6 @@ class ActivityClassifier:
                 proba = self.model.predict_proba(features)[0]
                 confidence = np.max(proba)
                 
-                # Mapear probabilidades a nombres de clase
                 if self.label_encoder is not None:
                     classes = self.label_encoder.classes_
                 else:
@@ -105,11 +103,9 @@ class ActivityClassifier:
                     if i < len(proba):
                         probabilities[class_name] = float(proba[i])
             else:
-                # Para modelos sin predict_proba, usar confianza fija
                 confidence = 0.8
                 probabilities[prediction] = confidence
             
-            # Decodificar etiqueta si hay label encoder
             if self.label_encoder is not None:
                 try:
                     predicted_activity = self.label_encoder.inverse_transform([prediction])[0]
@@ -121,40 +117,36 @@ class ActivityClassifier:
             return predicted_activity, confidence, probabilities
             
         except Exception as e:
-            print(f"Error en predicción: {e}")
+            print(f"Prediction error: {e}")
             return "error", 0.0, {}
     
     def predict_batch(self, features_batch: np.ndarray) -> List[Tuple[str, float]]:
         """
-        Predice actividades para un lote de características
+        Predict activities for a batch of feature vectors
         
         Args:
-            features_batch: Array 2D con características de múltiples muestras
+            features_batch: 2D array with features of multiple samples
             
         Returns:
-            Lista de tuplas (actividad, confianza)
+            List of tuples (activity, confidence)
         """
         if self.model is None:
-            return [("sin_modelo", 0.0)] * len(features_batch)
+            return [("no_model", 0.0)] * len(features_batch)
         
         results = []
         
         try:
-            # Normalizar si hay scaler
             if self.feature_scaler is not None:
                 features_batch = self.feature_scaler.transform(features_batch)
             
-            # Realizar predicciones
             predictions = self.model.predict(features_batch)
             
-            # Obtener probabilidades si es posible
             if hasattr(self.model, 'predict_proba'):
                 probabilities = self.model.predict_proba(features_batch)
                 confidences = np.max(probabilities, axis=1)
             else:
                 confidences = [0.8] * len(predictions)
             
-            # Procesar resultados
             for pred, conf in zip(predictions, confidences):
                 if self.label_encoder is not None:
                     try:
@@ -167,29 +159,29 @@ class ActivityClassifier:
                 results.append((activity, float(conf)))
             
         except Exception as e:
-            print(f"Error en predicción por lotes: {e}")
+            print(f"Batch prediction error: {e}")
             results = [("error", 0.0)] * len(features_batch)
         
         return results
     
     def get_activity_description(self, activity_code: str) -> str:
         """
-        Obtiene la descripción legible de una actividad
+        Get a human-readable description of an activity
         
         Args:
-            activity_code: Código de la actividad
+            activity_code: Activity code
             
         Returns:
-            Descripción de la actividad
+            Activity description
         """
-        return ACTIVITIES.get(activity_code, f"Actividad: {activity_code}")
+        return ACTIVITIES.get(activity_code, f"Activity: {activity_code}")
     
     def get_model_info(self) -> Dict:
         """
-        Retorna información sobre el modelo cargado
+        Return information about the currently loaded model
         
         Returns:
-            Diccionario con información del modelo
+            Dictionary with model info
         """
         info = {
             'model_loaded': self.model is not None,
@@ -204,19 +196,19 @@ class ActivityClassifier:
     
     def is_ready(self) -> bool:
         """
-        Verifica si el clasificador está listo para hacer predicciones
+        Check if classifier is ready for predictions
         
         Returns:
-            True si el modelo está cargado y listo
+            True if model is loaded
         """
         return self.model is not None
     
     def get_available_models(self) -> List[Dict]:
         """
-        Obtiene lista de modelos disponibles en el directorio de modelos
+        Get list of available models in the models directory
         
         Returns:
-            Lista de diccionarios con información de modelos disponibles
+            List of dicts with info of available models
         """
         models = []
         models_dir = Path(MODELS_PATH)
@@ -224,10 +216,8 @@ class ActivityClassifier:
         if not models_dir.exists():
             return models
         
-        # Buscar archivos de modelo
         for model_file in models_dir.glob("*.pkl"):
             try:
-                # Intentar cargar información básica
                 model_data = joblib.load(model_file)
                 
                 if isinstance(model_data, dict) and 'info' in model_data:
@@ -241,7 +231,6 @@ class ActivityClassifier:
                         'features': info.get('n_features', 'N/A')
                     })
                 else:
-                    # Modelo legacy sin metadatos
                     models.append({
                         'path': str(model_file),
                         'name': model_file.stem,
@@ -252,12 +241,12 @@ class ActivityClassifier:
                     })
                     
             except Exception as e:
-                print(f"Error leyendo modelo {model_file}: {e}")
+                print(f"Error reading model {model_file}: {e}")
         
         return models
     
     def clear_model(self):
-        """Limpia el modelo cargado"""
+        """Clear the currently loaded model"""
         self.model = None
         self.model_name = None
         self.feature_scaler = None
@@ -266,7 +255,13 @@ class ActivityClassifier:
 
 
 class ActivityBuffer:
-    """Buffer para suavizar predicciones de actividades"""
+    """Buffer to smooth activity predictions
+    
+    This class implements a temporal smoothing buffer that maintains a history of recent
+    predictions and their confidence levels. It helps stabilize activity recognition
+    by filtering out momentary misclassifications and selecting the most consistent
+    prediction over a time window.
+    """
     
     def __init__(self, buffer_size: int = 10, confidence_threshold: float = 0.6):
         self.buffer_size = buffer_size
@@ -276,31 +271,33 @@ class ActivityBuffer:
     
     def add_prediction(self, activity: str, confidence: float):
         """
-        Añade una nueva predicción al buffer
+        Add a new prediction to the buffer
         
         Args:
-            activity: Actividad predicha
-            confidence: Confianza de la predicción
+            activity: Predicted activity
+            confidence: Prediction confidence
         """
         self.predictions.append(activity)
         self.confidences.append(confidence)
         
-        # Mantener tamaño del buffer
         if len(self.predictions) > self.buffer_size:
             self.predictions.pop(0)
             self.confidences.pop(0)
-    
     def get_smoothed_prediction(self) -> Tuple[str, float]:
         """
-        Obtiene la predicción suavizada
+        Get the smoothed prediction based on recent history
+        
+        This method analyzes the buffer of recent predictions to determine
+        the most consistent activity. It counts occurrences of each activity
+        that meets the confidence threshold and returns the most frequent one
+        with its average confidence score.
         
         Returns:
-            Tupla con (actividad_suavizada, confianza_promedio)
+            Tuple with (smoothed_activity, average_confidence)
         """
         if not self.predictions:
-            return "desconocido", 0.0
+            return "unknown", 0.0
         
-        # Contar frecuencias
         activity_counts = {}
         activity_confidences = {}
         
@@ -312,18 +309,15 @@ class ActivityBuffer:
                 activity_confidences[activity].append(confidence)
         
         if not activity_counts:
-            return "incierto", np.mean(self.confidences)
+            return "uncertain", np.mean(self.confidences)
         
-        # Actividad más frecuente
         most_common = max(activity_counts.items(), key=lambda x: x[1])
         best_activity = most_common[0]
-        
-        # Confianza promedio para esa actividad
         avg_confidence = np.mean(activity_confidences[best_activity])
         
         return best_activity, avg_confidence
     
     def clear(self):
-        """Limpia el buffer"""
+        """Clear the buffer"""
         self.predictions.clear()
         self.confidences.clear()

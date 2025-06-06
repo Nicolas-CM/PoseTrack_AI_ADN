@@ -1,5 +1,9 @@
 """
-Utilidades para procesamiento de video y datos
+Video and data processing utilities
+
+This module provides helper functions for working with video files,
+including validation, information extraction, frame processing,
+and video encoding/decoding operations.
 """
 
 import cv2
@@ -10,13 +14,16 @@ import json
 
 def validate_video_file(video_path: str) -> bool:
     """
-    Valida si un archivo de video es válido y se puede abrir
+    Validate if a video file is valid and can be opened
+    
+    This function attempts to open a video file and read the first frame
+    to verify that the file is a valid and readable video.
     
     Args:
-        video_path: Ruta al archivo de video
+        video_path: Path to the video file
         
     Returns:
-        True si el video es válido, False en caso contrario
+        True if the video is valid, False otherwise
     """
     try:
         cap = cv2.VideoCapture(video_path)
@@ -33,13 +40,17 @@ def validate_video_file(video_path: str) -> bool:
 
 def get_video_info(video_path: str) -> dict:
     """
-    Obtiene información básica de un video
+    Get basic information about a video file
+    
+    This function extracts metadata from a video file including resolution,
+    frame rate, duration, and frame count. It's useful for analyzing and
+    preprocessing video content.
     
     Args:
-        video_path: Ruta al archivo de video
+        video_path: Path to the video file
         
     Returns:
-        Diccionario con información del video
+        Dictionary with video information
     """
     info = {
         'path': video_path,
