@@ -90,8 +90,8 @@ def main():
         sys.exit(1)
 
 def train_models():
-    """Función para entrenar modelos desde línea de comandos"""
-    print("🚀 PoseTrack AI - Entrenamiento de Modelos")
+    """Función para entrenar modelos especializados desde línea de comandos"""
+    print("🚀 PoseTrack AI - Entrenamiento de Modelos Especializados")
     print("=" * 50)
     
     if not check_dependencies():
@@ -100,8 +100,13 @@ def train_models():
     create_directories()
     
     try:
-        from src.training.train_model import main as train_main
-        train_main()
+        from src.training.train_specialized_models import SpecializedModelTrainer
+        
+        trainer = SpecializedModelTrainer()
+        results = trainer.train_all_specialized_models()
+        
+        print("\n🎉 Entrenamiento de modelos especializados completado!")
+        
     except Exception as e:
         print(f"❌ Error durante entrenamiento: {e}")
         import traceback

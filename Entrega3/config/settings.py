@@ -29,15 +29,26 @@ MEDIAPIPE_CONFIG = {
 # Configuración de cámara
 CAMERA_CONFIG = {"width": 640, "height": 480, "fps": 30}
 
-# Actividades a detectar
-ACTIVITIES = {
+# Actividades básicas de movimiento
+BASIC_ACTIVITIES = {
     "acercarse": "Acercándose a la cámara",
     "alejarse": "Alejándose de la cámara",
     "girarD": "Girando a la derecha",
     "girarI": "Girando a la izquierda",
     "sentarse": "Sentándose",
     "levantarse": "Levantándose",
+    "parado": "Estar de pie",
 }
+
+# Actividades de gimnasio/ejercicio
+GYM_ACTIVITIES = {
+    "squat": "Sentadillas",
+    "russian_twist": "Giros rusos",
+    "push_up": "Flexiones",
+}
+
+# Todas las actividades (para compatibilidad)
+ACTIVITIES = {**BASIC_ACTIVITIES, **GYM_ACTIVITIES}
 
 # Configuración de características
 FEATURE_CONFIG = {

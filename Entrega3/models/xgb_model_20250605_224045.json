@@ -1,0 +1,218 @@
+{
+  "model_type": "xgb",
+  "accuracy": 0.9994053518334985,
+  "cv_mean": 0.9991575572020341,
+  "cv_std": 0.0004025575505775661,
+  "classification_report": {
+    "acercarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 242.0
+    },
+    "alejarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 235.0
+    },
+    "barbell_biceps_curl": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1004.0
+    },
+    "girarD": {
+      "precision": 0.9968051118210862,
+      "recall": 1.0,
+      "f1-score": 0.9984,
+      "support": 312.0
+    },
+    "girarI": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 200.0
+    },
+    "levantarse": {
+      "precision": 1.0,
+      "recall": 0.9932203389830508,
+      "f1-score": 0.9965986394557823,
+      "support": 295.0
+    },
+    "parado": {
+      "precision": 1.0,
+      "recall": 0.9838709677419355,
+      "f1-score": 0.991869918699187,
+      "support": 62.0
+    },
+    "push_up": {
+      "precision": 0.9993943064809206,
+      "recall": 1.0,
+      "f1-score": 0.9996970614965162,
+      "support": 1650.0
+    },
+    "sentarse": {
+      "precision": 0.9973474801061007,
+      "recall": 1.0,
+      "f1-score": 0.99867197875166,
+      "support": 376.0
+    },
+    "squat": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 669.0
+    },
+    "accuracy": 0.9994053518334985,
+    "macro avg": {
+      "precision": 0.9993546898408108,
+      "recall": 0.9977091306724987,
+      "f1-score": 0.9985237598403145,
+      "support": 5045.0
+    },
+    "weighted avg": {
+      "precision": 0.9994066309418417,
+      "recall": 0.9994053518334985,
+      "f1-score": 0.9994041920869537,
+      "support": 5045.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      242,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      235,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1004,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      312,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      200,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      293,
+      0,
+      1,
+      1,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      61,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1650,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      376,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      669
+    ]
+  ],
+  "n_features": 281,
+  "n_samples": 25224,
+  "classes": [
+    "acercarse",
+    "alejarse",
+    "barbell_biceps_curl",
+    "girarD",
+    "girarI",
+    "levantarse",
+    "parado",
+    "push_up",
+    "sentarse",
+    "squat"
+  ],
+  "created_at": "2025-06-05T22:42:56.994364"
+}

@@ -1,0 +1,70 @@
+{
+  "model_type": "rf",
+  "category": "gym",
+  "accuracy": 0.9997007779772591,
+  "cv_mean": 0.9997007779772592,
+  "cv_std": 0.00010579096068025192,
+  "cv_scores": [
+    0.9995511669658886,
+    0.9997755834829444,
+    0.9997755834829444
+  ],
+  "classification_report": {
+    "push_up": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1654.0
+    },
+    "russian_twist": {
+      "precision": 0.9990176817288802,
+      "recall": 1.0,
+      "f1-score": 0.9995085995085995,
+      "support": 1017.0
+    },
+    "squat": {
+      "precision": 1.0,
+      "recall": 0.9985096870342772,
+      "f1-score": 0.9992542878448919,
+      "support": 671.0
+    },
+    "accuracy": 0.9997007779772591,
+    "macro avg": {
+      "precision": 0.9996725605762934,
+      "recall": 0.9995032290114257,
+      "f1-score": 0.9995876291178304,
+      "support": 3342.0
+    },
+    "weighted avg": {
+      "precision": 0.9997010719085191,
+      "recall": 0.9997007779772591,
+      "f1-score": 0.9997007399294339,
+      "support": 3342.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      1654,
+      0,
+      0
+    ],
+    [
+      0,
+      1017,
+      0
+    ],
+    [
+      0,
+      1,
+      670
+    ]
+  ],
+  "classes": [
+    "push_up",
+    "russian_twist",
+    "squat"
+  ],
+  "n_samples": 16710,
+  "n_features": 281,
+  "created_at": "2025-06-06T00:33:12.212707"
+}

@@ -1,0 +1,54 @@
+# .gitignore para PoseTrack AI
+# Excluir videos de ejercicios de gimnasio para evitar archivos grandes en el repositorio
+
+# Excluir data por su grande tamaño
+data/
+
+# Gym videos - Carpetas completas
+Videos/Gym/push-up/
+Videos/Gym/russian twist/
+Videos/Gym/squat/
+
+# Gym .zip
+Videos/Gym/push-up.zip
+Videos/Gym/russian twist.zip
+Videos/Gym/squat.zip
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Cache de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Entornos virtuales
+venv/
+env/
+ENV/
+.venv/
+
+# Archivos de configuración del IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de log
+*.log
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Modelos entrenados grandes (opcional - comentar si quieres incluirlos)
+# models/*.pkl
+# models/*.json
+
+# Datos de entrenamiento grandes (opcional - comentar si quieres incluirlos)
+# data/*.pkl
+# data/*.csv

@@ -3,10 +3,10 @@ Sistema de entrenamiento de modelos para clasificación de actividades
 """
 
 import cv2
-import numpy as np
 import pandas as pd
 from pathlib import Path
 import joblib
+import numpy as np
 import json
 from typing import Dict, List, Tuple, Optional
 from datetime import datetime
@@ -92,16 +92,18 @@ class VideoDataProcessor:
         Returns:
             Etiqueta de actividad o None si no se puede determinar
         """
-        filename = filename.lower()
-        
-        # Patrones para diferentes actividades
+        filename = filename.lower()          # Patrones para diferentes actividades
         patterns = {
-            'acercarse': r'acer.*',
-            'alejarse': r'alej.*',
+            'acercarse': r'acerca.*',
+            'alejarse': r'aleja.*',
             'girarD': r'girar.*d.*',
             'girarI': r'girar.*i.*',
             'sentarse': r'sent.*',
-            'levantarse': r'levant.*'
+            'levantarse': r'levant.*',
+            'parado': r'parado.*',
+            'squat': r'squat.*',
+            'russian_twist': r'russian.*twist.*',
+            'push_up': r'push.*up.*'
         }
         
         for activity, pattern in patterns.items():
@@ -142,13 +144,20 @@ class ModelTrainer:
         
         all_features = []
         all_labels = []
-        
-        # Buscar videos
+          # Buscar videos
         video_extensions = ['.mp4', '.avi', '.mov', '.MOV']
         video_files = []
         
+        # Buscar en el directorio principal
         for ext in video_extensions:
             video_files.extend(videos_dir.glob(f"*{ext}"))
+        
+        # Buscar también en subdirectorios (como Gym)
+        for ext in video_extensions:
+            video_files.extend(videos_dir.glob(f"**/*{ext}"))
+        
+        # Eliminar duplicados
+        video_files = list(set(video_files))
         
         if not video_files:
             raise ValueError(f"No se encontraron videos en {videos_dir}")

@@ -1,0 +1,118 @@
+{
+  "model_type": "xgb",
+  "accuracy": 1.0,
+  "cv_mean": 0.9991845363566517,
+  "cv_std": 0.0005282785930445687,
+  "classification_report": {
+    "acercarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 408.0
+    },
+    "alejarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 374.0
+    },
+    "girarD": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 530.0
+    },
+    "girarI": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 320.0
+    },
+    "levantarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 499.0
+    },
+    "sentarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 629.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2760.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 2760.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      408,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      374,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      530,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      320,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      499,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      629
+    ]
+  ],
+  "n_features": 281,
+  "n_samples": 13796,
+  "classes": [
+    "acercarse",
+    "alejarse",
+    "girarD",
+    "girarI",
+    "levantarse",
+    "sentarse"
+  ],
+  "created_at": "2025-06-05T20:27:25.111550"
+}

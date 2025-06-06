@@ -1,0 +1,148 @@
+{
+  "model_type": "xgb",
+  "category": "basic",
+  "accuracy": 1.0,
+  "cv_mean": 0.9979695431472081,
+  "cv_std": 0.000845678302370629,
+  "cv_scores": [
+    0.9970993473531544,
+    0.9970993473531544,
+    0.9992748368382887,
+    0.9978245105148659,
+    0.9985496736765772
+  ],
+  "classification_report": {
+    "acercarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 242.0
+    },
+    "alejarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 236.0
+    },
+    "girarD": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 313.0
+    },
+    "girarI": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 200.0
+    },
+    "levantarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 295.0
+    },
+    "parado": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 62.0
+    },
+    "sentarse": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 376.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1724.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 1724.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      242,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      236,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      313,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      200,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      295,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      62,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      376
+    ]
+  ],
+  "classes": [
+    "acercarse",
+    "alejarse",
+    "girarD",
+    "girarI",
+    "levantarse",
+    "parado",
+    "sentarse"
+  ],
+  "n_samples": 8619,
+  "n_features": 281,
+  "created_at": "2025-06-06T00:06:05.252126"
+}
