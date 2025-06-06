@@ -1,0 +1,3 @@
+# Videos de Entrenamiento para Modelos de Movimiento
+
+This folder contains the videos used to train human motion recognition and analysis models. The collection includes sequences of basic actions such as walking toward the camera, walking back, turning around, sitting down, and standing up. These videos provide the data necessary for machine learning algorithms to learn to identify, classify, and predict different types of body movements, thus creating robust models capable of recognizing human behavior patterns in real time.
