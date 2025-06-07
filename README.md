@@ -16,6 +16,27 @@ The system aims to contribute to **physiotherapy**, **personalized training**, a
 
 ---
 
+## 🎥 Final Presentation Video
+
+Watch the full presentation of the PoseTrack AI project, where we explain the architecture, results, and a live demo:
+
+[Watch Final Presentation](https://youtu.be/cDP3GSQNX2k?si=d7lbIf0mUNeByopG)
+
+---
+
+## 🎥 Real-Time Demo – Exercise Classification
+
+See real-time detection of basic activities and gym exercises using our graphical interface:
+
+[Watch Live Demo](https://youtu.be/qUk4IYl5pug?si=LfcLILjKWC4wcJ9T)
+
+---
+## Final Report
+
+[PoseTrack Final Report](https://github.com/Nicolas-CM/PoseTrack_AI_ADN/blob/main/Entrega3/POSE_TRACK_AI_FINAL_REPORT.pdf)
+
+---
+
 ## 📦 How to Run
 
 ### ▶️ 1. Navigate to the Project Folder
