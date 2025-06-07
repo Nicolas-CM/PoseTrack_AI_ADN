@@ -16,24 +16,6 @@ The system aims to contribute to **physiotherapy**, **personalized training**, a
 
 ---
 
-## 🎥 **Video of the Final Project Delivery**
-
-Watch the full presentation and explanation of **PoseTrack AI**:
-
-[https://youtu.be/cDP3GSQNX2k?si=d7lbIf0mUNeByopG](https://youtu.be/cDP3GSQNX2k?si=d7lbIf0mUNeByopG)
-
----
-
-## 🎥 **Real-time Exercise Classification Demo**
-
-See **PoseTrack AI** in action with a live demo:
-
-[https://youtu.be/qUk4IYl5pug?si=LfcLILjKWC4wcJ9T](https://youtu.be/qUk4IYl5pug?si=LfcLILjKWC4wcJ9T)
-
----
-
-
-
 ## 📦 How to Run
 
 ### ▶️ 1. Navigate to the Project Folder
